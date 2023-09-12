@@ -1,0 +1,17 @@
+# Ignore virtual environment files
+env/
+
+# Ignore database files
+*.db
+
+# Ignore generated Python bytecode
+__pycache__/
+
+# Ignore environment-specific files
+.env
+
+# Ignore log files
+*.log
+
+# Ignore configuration files
+instance/
