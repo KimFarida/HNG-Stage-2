@@ -15,10 +15,42 @@ class Person(db.Model):
     def __repr__(self):
         return '<Person %r>' % self.name
 
-# 
+@app.route('/api', methods = ['POST'])
+def create_person():
+    '''Create a person'''
+    data = request.json
+
+    if not data:
+        return jsonify({'error': 'No input data was provided'}), 400
+
+    name = data.get('name')
+    age = data.get('age')
+    address = data.get('address')
+
+    if not name or not age or not address:
+        return jsonify({'error': 'Missing required parameters'}), 400
+
+    if not isinstance(name, str):
+        return jsonify({'error': 'Name must be a string'}), 400
+
+    if not isinstance(age, int) or age < 0:
+        return jsonify({'error': 'Age must be a positive integer'}), 400
+
+    if not isinstance(address, str):
+        return jsonify({'error': 'Address must be a string'}), 400
+
+    new_person = Person(name=name, age=age, address=address)
+
+    try:
+        db.session.add(new_person)
+        db.session.commit()
+        return jsonify({'message': 'New person created successfully'}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'Something went wrong while creating the person'}), 500
 
 
-# READ: Fetch details of a person
+#READ: Fetch details of a person
 @app.route('/api/<int:user_id>', methods=['GET'])
 
 def get_person(user_id):
@@ -33,6 +65,7 @@ def get_person(user_id):
         'address': person.address
     }
     return jsonify(person_data)
+
 
 # @app.route('/persons', methods=['GET'])
 # def get_persons():
