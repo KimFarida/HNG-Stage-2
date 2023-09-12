@@ -51,6 +51,7 @@ def create_person():
 
 @app.route('/api/<identifier>', methods=['GET'])
 def get_person(identifier):
+    '''Get a person's details by name or id'''
     # Try to fetch by ID first
     person = Person.query.get(identifier)
     
@@ -71,6 +72,7 @@ def get_person(identifier):
 
 @app.route('/api/<identifier>', methods=['PUT'])
 def update_person(identifier):
+    '''Update a person's details by name or id'''
     # Try to fetch by ID first
     person = Person.query.get(identifier)
     
@@ -101,31 +103,40 @@ def update_person(identifier):
         db.session.rollback()
         return jsonify({'error': 'Something went wrong while updating the person'}), 500
 
+@app.route('/api/<identifier>', methods=['DELETE'])
+def delete_person(identifier):
+    '''Delete a person by name or id'''
+    person = Person.query.get(identifier)
+    
+    if person is None:
+        person = Person.query.filter_by(name=identifier).first()
 
+    if not person:
+        return jsonify({'error': 'Person not found'}), 404
 
+    try:
+        db.session.delete(person)
+        db.session.commit()
+        return jsonify({'message': 'Person deleted successfully'}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'Something went wrong while deleting the person'}), 500
 
+@app.route('/api/persons', methods=['GET'])
+def get_persons():
+    persons = Person.query.all()  # Query all persons from the database
+    person_list = []
 
+    for person in persons:
+        person_data = {
+            'id': person.id,
+            'name': person.name,
+            'age': person.age,
+            'address': person.address
+        }
+        person_list.append(person_data)
 
-
-
-# @app.route('/persons', methods=['GET'])
-# def get_persons():
-#     persons = Person.query.all()  # Query all persons from the database
-#     person_list = []
-
-#     for person in persons:
-#         person_data = {
-#             'id': person.id,
-#             'name': person.name,
-#             'age': person.age,
-#             'address': person.address
-#         }
-#         person_list.append(person_data)
-
-#     return jsonify(person_list)
-
-
-
+    return jsonify(person_list)
 
 @app.cli.command("create_tables")
 def create_tables():
