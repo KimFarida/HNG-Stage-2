@@ -9,8 +9,8 @@ db = SQLAlchemy(app)
 class Person(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    age = db.Column(db.Integer, nullable=False)
-    address= db.Column(db.String(255), nullable=False)
+    # age = db.Column(db.Integer, nullable=False)
+    # address= db.Column(db.String(255), nullable=False)
 
     def __repr__(self):
         return '<Person %r>' % self.name
@@ -24,22 +24,23 @@ def create_person():
         return jsonify({'error': 'No input data was provided'}), 400
 
     name = data.get('name')
-    age = data.get('age')
-    address = data.get('address')
+    # age = data.get('age')
+    # address = data.get('address')
 
-    if not name or not age or not address:
-        return jsonify({'error': 'Missing required parameters'}), 400
+    # if not name or not age or not address:
+    #     return jsonify({'error': 'Missing required parameters'}), 400
 
-    if not isinstance(name, str):
-        return jsonify({'error': 'Name must be a string'}), 400
+    # if not isinstance(name, str):
+    #     return jsonify({'error': 'Name must be a string'}), 400
 
-    if not isinstance(age, int) or age < 0:
-        return jsonify({'error': 'Age must be a positive integer'}), 400
+    # if not isinstance(age, int) or age < 0:
+    #     return jsonify({'error': 'Age must be a positive integer'}), 400
 
-    if not isinstance(address, str):
-        return jsonify({'error': 'Address must be a string'}), 400
+    # if not isinstance(address, str):
+    #     return jsonify({'error': 'Address must be a string'}), 400
 
-    new_person = Person(name=name, age=age, address=address)
+    # new_person = Person(name=name, age=age, address=address)
+    new_person = Person(name=name)
 
     try:
         db.session.add(new_person)
@@ -49,22 +50,30 @@ def create_person():
         db.session.rollback()
         return jsonify({'error': 'Something went wrong while creating the person'}), 500
 
-
-#READ: Fetch details of a person
-@app.route('/api/<int:user_id>', methods=['GET'])
-
-def get_person(user_id):
-    person = Person.query.get(user_id)
+@app.route('/api/<identifier>', methods=['GET'])
+def get_person(identifier):
+    # Try to fetch by ID first
+    person = Person.query.get(identifier)
+    
+    if person is None:
+        # If not found by ID, try to fetch by name
+        person = Person.query.filter_by(name=identifier).first()
+    
     if not person:
         return jsonify({'error': 'Person not found'}), 404
 
     person_data = {
         'id': person.id,
         'name': person.name,
-        'age': person.age,
-        'address': person.address
+        # 'age': person.age,
+        # 'address': person.address
     }
     return jsonify(person_data)
+
+
+
+
+
 
 
 # @app.route('/persons', methods=['GET'])
