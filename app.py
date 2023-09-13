@@ -49,7 +49,11 @@ def create_person():
 
     if not isinstance(address, str):
         return {'error': 'Address must be a string'}, 400
-
+    # Check if the user already exists by name
+    existing_person = Person.query.filter_by(name=name).first()
+    if existing_person:
+        return {'error': 'User with the same name already exists'}, 409
+       
     new_person = Person(name=name, age=age, address=address)
 
     try:
