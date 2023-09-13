@@ -118,15 +118,11 @@ This documentation provides information on how to use the Person API for CRUD (C
 ### Sample Usage
 - **Create a New Person (POST):**
 ```
-    #using id
     curl -X POST -H "Content-Type: application/json" -d '{
     "name": "Mark Essien",
     "age": 30,
     "address": "20 Admiralty St"
-    }' https://kimfarida1.eu.pythonanywhere.com/api
-
-    #using name
-    
+    }' https://kimfarida1.eu.pythonanywhere.com/api    
 ```
 - **Fetch Details of a Person (GET):**
     #### Using Id as `<identifier>`
