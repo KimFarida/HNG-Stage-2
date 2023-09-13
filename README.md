@@ -32,7 +32,7 @@ git clone https://github.com/KimFarida/HNG-Stage-2
 ```
 2. Create a virtual environment (optional but recommended):
     ```
-    cd HNG-Stage-2/Stage-2
+    cd HNG-Stage-2/
     ```
 3. Activate the virtual environment (if created):
 * On Windows:
