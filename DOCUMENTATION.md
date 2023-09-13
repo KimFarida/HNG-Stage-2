@@ -119,17 +119,18 @@ This documentation provides information on how to use the Person API for CRUD (C
 - **Create a New Person (POST):**
 ```
     curl -X POST -H "Content-Type: application/json" -d '{
-    "name": "John Doe",
+    "name": "Mark Essien",
     "age": 30,
-    "address": "123 Main St"
+    "address": "20 Admiralty St"
     }' http://localhost:5000/api
 ```
 - **Fetch Details of a Person (GET):**
 ```
     curl -X PUT -H "Content-Type: application/json" -d '{
-  "name": "Updated Name",
-  "age": 35,
-  "address": "456 Elm St"
+  "id": 1,
+  "name": "Mark Essien",
+  "age": 30,
+  "address": "20 Admiralty St"
 }' http://localhost:5000/api/1
 ```
 
@@ -163,7 +164,8 @@ To set up and deploy this API, follow these steps:
 * Run the Flask application: `flask run`
 
 For more detailed instructions, refer to the project's README or documentation.
-This concludes the documentation for the Person API. If you have any questions or need further assistance, please reach out to our support team.
+
+This concludes the documentation for the Person API. If you have any questions or need further assistance, please reach out to me.
 
 
 
