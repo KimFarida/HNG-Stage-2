@@ -12,7 +12,11 @@ Welcome to the HNG STAGE 2 CRUD API project! This API allows you to perform CRUD
 - [Sample Usage](#sample-usage)
 - [Limitations and Assumptions](#limitations-and-assumptions)
 
-- [License](#license)
+
+## Project UML Diagram
+
+![UML Diagram](UML%20Diagram.png)
+
 
 ## Getting Started
 
@@ -78,8 +82,6 @@ Sample API interactions and usage examples are provided in the [API Documentatio
 * No query parameters are supported for filtering.
 * Data validation is minimal in this example.
 
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
 
 
 Feel free to customize this template to fit your project's specific needs and add any additional information or sections that are relevant to your project.
