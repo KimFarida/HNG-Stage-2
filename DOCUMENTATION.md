@@ -1,4 +1,4 @@
-#STAGE 2 CRUD API DOCUMENTATION
+# STAGE 2 CRUD API DOCUMENTATION
 
 This documentation provides information on how to use the Person API for CRUD (Create, Read, Update, Delete) operations on person records.
 
