@@ -77,9 +77,6 @@ Sample API interactions and usage examples are provided in the [API Documentatio
 
 ### Limitations and Assumptions
 * Names are assumed to be unique.
-* Age must be a positive integer.
-* Address must be a string.
-* No query parameters are supported for filtering.
 * Data validation is minimal in this example.
 
 
