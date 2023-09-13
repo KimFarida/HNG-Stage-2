@@ -15,7 +15,7 @@ Welcome to the HNG STAGE 2 CRUD API project! This API allows you to perform CRUD
 
 ## Project UML Diagram
 
-![UML Diagram](UML%20Diagram.png)
+![UML Diagram](UML-Diagram.png)
 
 
 ## Getting Started
