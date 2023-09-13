@@ -126,12 +126,8 @@ This documentation provides information on how to use the Person API for CRUD (C
 ```
 - **Fetch Details of a Person (GET):**
 ```
-    curl -X PUT -H "Content-Type: application/json" -d '{
-  "id": 1,
-  "name": "Mark Essien",
-  "age": 30,
-  "address": "20 Admiralty St"
-}' https://kimfarida1.eu.pythonanywhere.com/api/1
+    curl -X GET -H "Content-Type: application/json" https://kimfarida1.eu.pythonanywhere.com/api/1
+
 ```
 
 - **Update Details of a Person (PUT)::**
