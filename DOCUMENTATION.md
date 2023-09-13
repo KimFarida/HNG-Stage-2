@@ -2,6 +2,10 @@
 
 This documentation provides information on how to use the Person API for CRUD (Create, Read, Update, Delete) operations on person records.
 
+## Project UML Diagram
+
+![UML Diagram](UML%20Diagram.png)
+
 ## Endpoints
 
 ### Create a New Person
@@ -91,28 +95,6 @@ This documentation provides information on how to use the Person API for CRUD (C
     {
         "error": "Person not found"
     }
-
-### Fetch All Persons
-- **Endpoint:** /api/persons
-- **HTTP METHOD:** GET
-- **Response Format:**
-    - Success (HTTP 200):
-    ```json
-        [
-    {
-        "id": 1,
-        "name": "Mark Essien",
-        "age": 30,
-        "address": "20 Admiralty St"
-    },
-    {
-        "id": 2,
-        "name": "Seyi Onifade",
-        "age": 25,
-        "address": "89 Babajide St"
-    }
-    // ... (more persons)
-    ]
 
     ```
 ### Sample Usage
