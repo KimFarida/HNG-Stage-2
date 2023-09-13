@@ -35,26 +35,16 @@ def create_person():
         return {'error': 'No input data was provided'}, 400
 
     name = data.get('name')
-    age = data.get('age')
-    address = data.get('address')
-
-    if not name or not age or not address:
-        return {'error': 'Missing required parameters'}, 400
-
+   
     if not isinstance(name, str):
         return {'error': 'Name must be a string'}, 400
 
-    if not isinstance(age, int) or age < 0:
-        return {'error': 'Age must be a positive integer'}, 400
-
-    if not isinstance(address, str):
-        return {'error': 'Address must be a string'}, 400
     # Check if the user already exists by name
     existing_person = Person.query.filter_by(name=name).first()
     if existing_person:
         return {'error': 'User with the same name already exists'}, 409
        
-    new_person = Person(name=name, age=age, address=address)
+    new_person = Person(name=name)
 
     try:
         db.session.add(new_person)
@@ -82,9 +72,7 @@ def get_person(identifier):
 
     person_data = {
         'id': person.id,
-        'name': person.name,
-        'age': person.age,
-        'address': person.address
+        'name': person.name
     }
     return jsonify(person_data)
 
@@ -106,16 +94,11 @@ def update_person(identifier):
     data = request.json
 
     name = data.get('name', person.name)
-    age = data.get('age', person.age)
-    address = data.get('address', person.address)
-
-    if not isinstance(name, str) or not isinstance(age, int) or age < 0 or not isinstance(address, str):
+  
+    if not isinstance(str):
         return jsonify({'error': 'Invalid data format'}), 400
 
     person.name = name
-    person.age = age
-    person.address = address
-
     try:
         db.session.commit()
         return jsonify({'message': 'Person updated successfully'}), 200
@@ -144,22 +127,6 @@ def delete_person(identifier):
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': 'Something went wrong while deleting the person'}), 500
-
-# @app.route('/api/persons', methods=['GET'])
-# def get_persons():
-#     persons = Person.query.all()  # Query all persons from the database
-#     person_list = []
-
-#     for person in persons:
-#         person_data = {
-#             'id': person.id,
-#             'name': person.name,
-#             'age': person.age,
-#             'address': person.address
-#         }
-#         person_list.append(person_data)
-
-#     return jsonify(person_list)
 
 @app.cli.command("create_tables")
 def create_tables():
