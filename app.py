@@ -1,7 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flasgger import Swagger
+from flask_restful import Api
+
+
 
 app = Flask(__name__)
+api = Api(app)
+swagger = Swagger(app)
+
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///persons.db'
 db = SQLAlchemy(app)
@@ -36,43 +44,106 @@ class Person(db.Model):
         if age < 0:
             raise ValueError('Age must be a non-negative integer.')
 
-@app.route('/api', methods = ['POST'])
+@app.route('/api', methods=['POST'])
 def create_person():
-    '''Create a person'''
-    data = request.json
+    """
+    Create Person Endpoint
+    ---
+    parameters:
+      - in: body
+        name: person
+        description: The person object to be created.
+        required: true
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "Mark Essien"
+              description: The name of the person.
+            age:
+              type: integer
+              format: int32
+              example: 30
+              description: The age of the person.
+            address:
+              type: string
+              example: "HNG, Nigeria"
+              description: The address of the person.
+    responses:
+      201:
+        description: New person created successfully.
+      400:
+        description: Invalid input data or missing parameters.
+      500:
+        description: Something went wrong while creating the person.
+    """
+    data = request.get_json()
 
     if not data:
-        return jsonify({'error': 'No input data was provided'}), 400
+        return {'error': 'No input data was provided'}, 400
 
     name = data.get('name')
     age = data.get('age')
     address = data.get('address')
 
     if not name or not age or not address:
-        return jsonify({'error': 'Missing required parameters'}), 400
+        return {'error': 'Missing required parameters'}, 400
 
     if not isinstance(name, str):
-        return jsonify({'error': 'Name must be a string'}), 400
+        return {'error': 'Name must be a string'}, 400
 
     if not isinstance(age, int) or age < 0:
-        return jsonify({'error': 'Age must be a positive integer'}), 400
+        return {'error': 'Age must be a positive integer'}, 400
 
     if not isinstance(address, str):
-        return jsonify({'error': 'Address must be a string'}), 400
+        return {'error': 'Address must be a string'}, 400
 
     new_person = Person(name=name, age=age, address=address)
 
     try:
         db.session.add(new_person)
         db.session.commit()
-        return jsonify({'message': 'New person created successfully'}), 201
+        return {'message': 'New person created successfully'}, 201
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': 'Something went wrong while creating the person'}), 500
+        return {'error': 'Something went wrong while creating the person'}, 500
+
 
 @app.route('/api/<identifier>', methods=['GET'])
 def get_person(identifier):
-    '''Get a person's details by name or id'''
+    '''
+    Get Person Details Endpoint
+    ---
+    parameters:
+      - name: identifier
+        in: path
+        type: string
+        required: true
+        description: The ID or name of the person to fetch.
+    responses:
+      200:
+        description: Person details retrieved successfully.
+        schema:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int32
+              description: The ID of the person.
+            name:
+              type: string
+              description: The name of the person.
+            age:
+              type: integer
+              format: int32
+              description: The age of the person.
+            address:
+              type: string
+              description: The address of the person.
+      404:
+        description: Person not found.
+    '''
     # Try to fetch by ID first
     person = Person.query.get(identifier)
     
@@ -93,7 +164,45 @@ def get_person(identifier):
 
 @app.route('/api/<identifier>', methods=['PUT'])
 def update_person(identifier):
-    '''Update a person's details by name or id'''
+    """
+    Update Person Endpoint
+    ---
+    parameters:
+      - name: identifier
+        in: path
+        type: string
+        required: true
+        description: The ID or name of the person to update.
+      - name: person
+        in: body
+        description: The updated person object.
+        required: true
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "Mark Anthony"
+              description: The updated name of the person.
+            age:
+              type: integer
+              format: int32
+              example: 35
+              description: The updated age of the person.
+            address:
+              type: string
+              example: "1004 apartments, Lagos"
+              description: The updated address of the person.
+    responses:
+      200:
+        description: Person updated successfully.
+      400:
+        description: Invalid input data format.
+      404:
+        description: Person not found.
+      500:
+        description: Something went wrong while updating the person.
+    """
     # Try to fetch by ID first
     person = Person.query.get(identifier)
     
@@ -126,7 +235,23 @@ def update_person(identifier):
 
 @app.route('/api/<identifier>', methods=['DELETE'])
 def delete_person(identifier):
-    '''Delete a person by name or id'''
+    """
+    Delete Person Endpoint
+    ---
+    parameters:
+      - name: identifier
+        in: path
+        type: string
+        required: true
+        description: The ID or name of the person to delete.
+    responses:
+      200:
+        description: Person deleted successfully.
+      404:
+        description: Person not found.
+      500:
+        description: Something went wrong while deleting the person.
+    """
     person = Person.query.get(identifier)
     
     if person is None:
@@ -165,4 +290,4 @@ def create_tables():
     print("Database tables created")
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
