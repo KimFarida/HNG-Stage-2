@@ -28,11 +28,11 @@ Before you begin, ensure you have met the following requirements:
 1. Clone the repository to your local machine:
 
 ```
-git clone https://github.com/KimFarida/hng-stage2-crud-api.git
+git clone https://github.com/KimFarida/HNG-Stage-2
 ```
 2. Create a virtual environment (optional but recommended):
     ```
-    cd hng-stage2-crud-api
+    cd HNG-Stage-2/Stage-2
     ```
 3. Activate the virtual environment (if created):
 * On Windows:
