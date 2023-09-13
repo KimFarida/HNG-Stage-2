@@ -13,9 +13,7 @@ Welcome to the HNG STAGE 2 CRUD API project! This API allows you to perform CRUD
 - [Limitations and Assumptions](#limitations-and-assumptions)
 
 
-## Project UML Diagram
-
-![UML Diagram](UML-Diagram.png)
+## [Project UML Diagram](UML/UML.md)
 
 
 ## Getting Started
