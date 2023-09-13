@@ -66,7 +66,7 @@ The API provides the following endpoints:
 For detailed information on each endpoint, please refer to the API Documentation.
 
 ### Swagger UI
-You can also interact with this API using Swagger UI, which provides a user-friendly interface for exploring and testing the API endpoints. To access Swagger UI, follow the [Swagger UI Documentation][Reference].
+You can also interact with this API using Swagger UI, which provides a user-friendly interface for exploring and testing the API endpoints. To access Swagger UI, follow the [Swagger UI Documentation][].
 
 ### Sample Usage
 Sample API interactions and usage examples are provided in the API Documentation.

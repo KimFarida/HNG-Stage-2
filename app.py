@@ -1,54 +1,28 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
+from models import db,Person
 from flasgger import Swagger
 from flask_restful import Api
 import yaml
-
-
-
+   
 app = Flask(__name__)
-api = Api(app)
 # Load Swagger content from the file
 with open('swagger.yaml', 'r') as file:
     swagger_config = yaml.load(file, Loader=yaml.FullLoader)
 
-# Use the loaded swagger_config when initializing flasgger
+# Initialize Flask-RESTful
+api = Api(app)
+
+# Initialize Flasgger with the loaded Swagger configuration
 Swagger(app, template=swagger_config)
 
+# Load application configuration from Config class
 app.config.from_object(Config)
 
-db = SQLAlchemy(app)
+# Initialize the SQLAlchemy database
+db.init_app(app)
 
-class Person(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
-    age = db.Column(db.Integer, nullable=False)
-    address= db.Column(db.String(255), nullable=False)
-
-    def __repr__(self):
-        return '<Person %r>' % self.name
-    
-    __table_args__ = (
-        db.CheckConstraint('age >= 0', name='age_non_negative'),
-    )
-
-    @classmethod
-    def validate_name_length(cls, name):
-        max_length = 80  # Define the maximum length for the name field
-        if len(name) > max_length:
-            raise ValueError(f'Name must be {max_length} characters or less.')
-
-    @classmethod
-    def validate_address_length(cls, address):
-        max_length = 255  # Define the maximum length for the address field
-        if len(address) > max_length:
-            raise ValueError(f'Address must be {max_length} characters or less.')
-
-    @staticmethod
-    def validate_age_non_negative(age):
-        if age < 0:
-            raise ValueError('Age must be a non-negative integer.')
 
 @app.route('/api', methods=['POST'])
 def create_person():

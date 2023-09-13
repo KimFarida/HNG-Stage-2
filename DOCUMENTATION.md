@@ -97,7 +97,7 @@ This documentation provides information on how to use the Person API for CRUD (C
 - **HTTP METHOD:** GET
 - **Response Format:**
     - Success (HTTP 200):
-    ```
+    ```json
         [
     {
         "id": 1,
@@ -122,7 +122,7 @@ This documentation provides information on how to use the Person API for CRUD (C
     "name": "Mark Essien",
     "age": 30,
     "address": "20 Admiralty St"
-    }' http://localhost:5000/api
+    }' https://kimfarida1.eu.pythonanywhere.com/api
 ```
 - **Fetch Details of a Person (GET):**
 ```
@@ -131,7 +131,7 @@ This documentation provides information on how to use the Person API for CRUD (C
   "name": "Mark Essien",
   "age": 30,
   "address": "20 Admiralty St"
-}' http://localhost:5000/api/1
+}' https://kimfarida1.eu.pythonanywhere.com/api/1
 ```
 
 - **Update Details of a Person (PUT)::**
@@ -140,12 +140,12 @@ This documentation provides information on how to use the Person API for CRUD (C
     "name": "Updated Name",
     "age": 35,
     "address": "456 Elm St"
-    }' http://localhost:5000/api/1
+    }' https://kimfarida1.eu.pythonanywhere.com/api/1
 ```
 
 - **Delete a Person (DELETE):**
 ```
-   curl -X DELETE http://localhost:5000/api/1 
+   curl -X DELETE https://kimfarida1.eu.pythonanywhere.com/api/1
 ```
 
 ## Swagger UI Documentation
@@ -156,10 +156,7 @@ You can also interact with this API using Swagger UI, which provides a user-frie
 
 To access Swagger UI and interact with the API, follow these steps:
 
-* Start your Flask application if it's not already running.
-
-*  Open a web browser and navigate to the Swagger UI URL. By default, it should be available at: `http://localhost:5000/api/docs`
-Replace `localhost:5000` with the appropriate host and port if your Flask application is running elsewhere.
+*  Open a web browser and navigate to the Swagger UI URL. By default, it should be available at: `https://kimfarida1.eu.pythonanywhere.com/apidocs/`
 
 * You will be presented with the Swagger UI interface, which allows you to explore the API endpoints, make requests, and view responses interactively.
 
@@ -183,12 +180,17 @@ Here are sample API interactions you can perform in Swagger UI:
 - Data validation is minimal in this example.
 
 ### Setup and Deployment
-To set up and deploy this API, follow these steps:
-* Clone the repositor
+Setting up and deploying the API on PythonAnywhere has already been taken care of. You don't need to perform these steps again because your application is live on https://kimfarida1.eu.pythonanywhere.com.
+
+However, if you want to understand how the deployment process works or if you're working on a development environment, you can follow these steps:
+
+* Clone the repository
 * Install the required dependencies 
 * Configure the database URI 
 * Create the database tables by running: `flask create_tables`
 * Run the Flask application: `flask run`
+
+Now, you can test the API by making requests to `http://localhost:5000/api` or `http://localhost:5000/api/<identifier>` in your local environment.
 
 For more detailed instructions, refer to the project's README or documentation.
 
