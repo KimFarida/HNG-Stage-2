@@ -97,7 +97,11 @@ def update_person(identifier):
   
     if not isinstance(str):
         return jsonify({'error': 'Invalid data format'}), 400
-
+       
+   # Check if the user already exists by name
+     existing_person = Person.query.filter_by(name=name).first()
+   if existing_person:
+         return {'error': 'User with the same name already exists'}, 409
     person.name = name
     try:
         db.session.commit()
