@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from config import Config
 from flasgger import Swagger
 from flask_restful import Api
 import yaml
@@ -15,9 +16,8 @@ with open('swagger.yaml', 'r') as file:
 # Use the loaded swagger_config when initializing flasgger
 Swagger(app, template=swagger_config)
 
+app.config.from_object(Config)
 
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///persons.db'
 db = SQLAlchemy(app)
 
 class Person(db.Model):

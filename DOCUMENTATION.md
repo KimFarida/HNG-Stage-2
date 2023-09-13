@@ -148,6 +148,33 @@ This documentation provides information on how to use the Person API for CRUD (C
    curl -X DELETE http://localhost:5000/api/1 
 ```
 
+## Swagger UI Documentation
+
+You can also interact with this API using Swagger UI, which provides a user-friendly interface for exploring and testing the API endpoints.
+
+### Access Swagger UI
+
+To access Swagger UI and interact with the API, follow these steps:
+
+* Start your Flask application if it's not already running.
+
+*  Open a web browser and navigate to the Swagger UI URL. By default, it should be available at: `http://localhost:5000/api/docs`
+Replace `localhost:5000` with the appropriate host and port if your Flask application is running elsewhere.
+
+* You will be presented with the Swagger UI interface, which allows you to explore the API endpoints, make requests, and view responses interactively.
+
+### Sample Usage in Swagger UI
+
+Here are sample API interactions you can perform in Swagger UI:
+
+- **Create a New Person (POST):** Use Swagger UI to create a new person by providing the required data in the request body.
+
+- **Fetch Details of a Person (GET):** Use Swagger UI to retrieve details of a person by specifying their name or ID.
+
+- **Update Details of a Person (PUT):** Update a person's information using Swagger UI by providing the updated data in the request body.
+
+- **Delete a Person (DELETE):** Delete a person record using Swagger UI by specifying their name or ID.
+
 ### Limitations and Assumptions
 - Names are assumed to be unique.
 - Age must be a positive integer.
@@ -166,8 +193,3 @@ To set up and deploy this API, follow these steps:
 For more detailed instructions, refer to the project's README or documentation.
 
 This concludes the documentation for the Person API. If you have any questions or need further assistance, please reach out to me.
-
-
-
-
-
