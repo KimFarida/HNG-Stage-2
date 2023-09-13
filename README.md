@@ -11,7 +11,7 @@ Welcome to the HNG STAGE 2 CRUD API project! This API allows you to perform CRUD
 - [Swagger UI](#swagger-ui)
 - [Sample Usage](#sample-usage)
 - [Limitations and Assumptions](#limitations-and-assumptions)
-- [Contributing](#contributing)
+
 - [License](#license)
 
 ## Getting Started
@@ -31,21 +31,21 @@ Before you begin, ensure you have met the following requirements:
 git clone https://github.com/KimFarida/HNG-Stage-2
 ```
 2. Create a virtual environment (optional but recommended):
-    ```
-    cd HNG-Stage-2/
-    ```
+```
+cd HNG-Stage-2/
+```
 3. Activate the virtual environment (if created):
-* On Windows:
-```
-    venv\Scripts\activate
-```
-* On macOS and Linux:
-```
-    source venv/bin/activate
-```
+  * On Windows:
+  ```
+  venv\Scripts\activate
+  ```
+  * On macOS and Linux:
+  ```
+  source venv/bin/activate
+  ```
 4. Install the project dependencies:
 ```
-    pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 ### Running the Application
 To run the Flask application, use the following command:
