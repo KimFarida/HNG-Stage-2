@@ -2,12 +2,18 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flasgger import Swagger
 from flask_restful import Api
+import yaml
 
 
 
 app = Flask(__name__)
 api = Api(app)
-swagger = Swagger(app)
+# Load Swagger content from the file
+with open('swagger.yaml', 'r') as file:
+    swagger_config = yaml.load(file, Loader=yaml.FullLoader)
+
+# Use the loaded swagger_config when initializing flasgger
+Swagger(app, template=swagger_config)
 
 
 
@@ -48,35 +54,6 @@ class Person(db.Model):
 def create_person():
     """
     Create Person Endpoint
-    ---
-    parameters:
-      - in: body
-        name: person
-        description: The person object to be created.
-        required: true
-        schema:
-          type: object
-          properties:
-            name:
-              type: string
-              example: "Mark Essien"
-              description: The name of the person.
-            age:
-              type: integer
-              format: int32
-              example: 30
-              description: The age of the person.
-            address:
-              type: string
-              example: "HNG, Nigeria"
-              description: The address of the person.
-    responses:
-      201:
-        description: New person created successfully.
-      400:
-        description: Invalid input data or missing parameters.
-      500:
-        description: Something went wrong while creating the person.
     """
     data = request.get_json()
 
@@ -112,38 +89,9 @@ def create_person():
 
 @app.route('/api/<identifier>', methods=['GET'])
 def get_person(identifier):
-    '''
-    Get Person Details Endpoint
-    ---
-    parameters:
-      - name: identifier
-        in: path
-        type: string
-        required: true
-        description: The ID or name of the person to fetch.
-    responses:
-      200:
-        description: Person details retrieved successfully.
-        schema:
-          type: object
-          properties:
-            id:
-              type: integer
-              format: int32
-              description: The ID of the person.
-            name:
-              type: string
-              description: The name of the person.
-            age:
-              type: integer
-              format: int32
-              description: The age of the person.
-            address:
-              type: string
-              description: The address of the person.
-      404:
-        description: Person not found.
-    '''
+    """
+    Get Person Endpoint
+    """
     # Try to fetch by ID first
     person = Person.query.get(identifier)
     
@@ -166,42 +114,6 @@ def get_person(identifier):
 def update_person(identifier):
     """
     Update Person Endpoint
-    ---
-    parameters:
-      - name: identifier
-        in: path
-        type: string
-        required: true
-        description: The ID or name of the person to update.
-      - name: person
-        in: body
-        description: The updated person object.
-        required: true
-        schema:
-          type: object
-          properties:
-            name:
-              type: string
-              example: "Mark Anthony"
-              description: The updated name of the person.
-            age:
-              type: integer
-              format: int32
-              example: 35
-              description: The updated age of the person.
-            address:
-              type: string
-              example: "1004 apartments, Lagos"
-              description: The updated address of the person.
-    responses:
-      200:
-        description: Person updated successfully.
-      400:
-        description: Invalid input data format.
-      404:
-        description: Person not found.
-      500:
-        description: Something went wrong while updating the person.
     """
     # Try to fetch by ID first
     person = Person.query.get(identifier)
@@ -237,21 +149,8 @@ def update_person(identifier):
 def delete_person(identifier):
     """
     Delete Person Endpoint
-    ---
-    parameters:
-      - name: identifier
-        in: path
-        type: string
-        required: true
-        description: The ID or name of the person to delete.
-    responses:
-      200:
-        description: Person deleted successfully.
-      404:
-        description: Person not found.
-      500:
-        description: Something went wrong while deleting the person.
     """
+    
     person = Person.query.get(identifier)
     
     if person is None:
@@ -268,21 +167,21 @@ def delete_person(identifier):
         db.session.rollback()
         return jsonify({'error': 'Something went wrong while deleting the person'}), 500
 
-@app.route('/api/persons', methods=['GET'])
-def get_persons():
-    persons = Person.query.all()  # Query all persons from the database
-    person_list = []
+# @app.route('/api/persons', methods=['GET'])
+# def get_persons():
+#     persons = Person.query.all()  # Query all persons from the database
+#     person_list = []
 
-    for person in persons:
-        person_data = {
-            'id': person.id,
-            'name': person.name,
-            'age': person.age,
-            'address': person.address
-        }
-        person_list.append(person_data)
+#     for person in persons:
+#         person_data = {
+#             'id': person.id,
+#             'name': person.name,
+#             'age': person.age,
+#             'address': person.address
+#         }
+#         person_list.append(person_data)
 
-    return jsonify(person_list)
+#     return jsonify(person_list)
 
 @app.cli.command("create_tables")
 def create_tables():
