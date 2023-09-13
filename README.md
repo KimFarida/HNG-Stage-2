@@ -63,13 +63,13 @@ The API provides the following endpoints:
 * Update Details of a Person (`PUT /api/<identifier>`)
 * Delete a Person (`DELETE /api/<identifier>`)
 
-For detailed information on each endpoint, please refer to the API Documentation.
+For detailed information on each endpoint, please refer to the [API Documentation](https://github.com/KimFarida/HNG-Stage-2/blob/main/DOCUMENTATION.md).
 
 ### Swagger UI
-You can also interact with this API using Swagger UI, which provides a user-friendly interface for exploring and testing the API endpoints. To access Swagger UI, follow the [Swagger UI Documentation][].
+You can also interact with this API using Swagger UI, which provides a user-friendly interface for exploring and testing the API endpoints. To access Swagger UI, follow the Swagger UI Documentation.
 
 ### Sample Usage
-Sample API interactions and usage examples are provided in the API Documentation.
+Sample API interactions and usage examples are provided in the [API Documentation](https://github.com/KimFarida/HNG-Stage-2/blob/main/DOCUMENTATION.md).
 
 ### Limitations and Assumptions
 * Names are assumed to be unique.
