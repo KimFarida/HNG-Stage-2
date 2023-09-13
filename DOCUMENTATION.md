@@ -4,7 +4,7 @@ This documentation provides information on how to use the Person API for CRUD (C
 
 ## Project UML Diagram
 
-![UML Diagram](UML%20Diagram.png)
+![UML Diagram](UML-Diagram.png)
 
 ## Endpoints
 
